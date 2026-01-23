@@ -1,0 +1,32 @@
+{
+    "name": "melsoft-hospital-digitisation-system-server",
+    "version": "1.0.0",
+    "description": "Hospital Digitisation System Backend Server",
+    "main": "src/index.js",
+    "scripts": {
+        "start": "node src/index.js",
+        "dev": "node --watch src/index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/GuyMcKechnie/melsoft-hospital-digitisation-system-server.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "commonjs",
+    "bugs": {
+        "url": "https://github.com/GuyMcKechnie/melsoft-hospital-digitisation-system-server/issues"
+    },
+    "homepage": "https://github.com/GuyMcKechnie/melsoft-hospital-digitisation-system-server#readme",
+    "dependencies": {
+        "express": "^5.2.1",
+        "dotenv": "^16.3.1",
+        "@supabase/supabase-js": "^2.38.4",
+        "cors": "^2.8.5"
+    },
+    "devDependencies": {
+        "nodemon": "^3.0.2"
+    }
+}
