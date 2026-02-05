@@ -30,4 +30,17 @@ function authorize(allowed = []) {
     };
 }
 
-module.exports = { authenticateJWT, authorize };
+function authorizeOrOwner(allowed = []) {
+    return (req, res, next) => {
+        if (!req.user) return ResponseHelper.error(res, { code: 'unauthenticated', message: 'Not authenticated' }, 401);
+        const role = req.user.role;
+        const userId = req.user.id;
+        const paramId = req.params.id;
+        if (paramId && userId && paramId === String(userId)) return next();
+        if (!Array.isArray(allowed) || allowed.length === 0) return next();
+        if (!role || !allowed.includes(role)) return ResponseHelper.error(res, { code: 'forbidden', message: 'Insufficient permissions' }, 403);
+        return next();
+    };
+}
+
+module.exports = { authenticateJWT, authorize, authorizeOrOwner };
