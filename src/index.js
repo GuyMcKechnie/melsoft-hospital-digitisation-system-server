@@ -39,6 +39,14 @@ try {
     console.warn('No example routes found or failed to load:', err.message);
 }
 
+// Auth routes
+try {
+    const authRouter = require('./routes/auth');
+    app.use('/api', authRouter);
+} catch (err) {
+    console.warn('No auth routes loaded:', err.message);
+}
+
 // 404 handler
 app.use((req, res) => {
     return ResponseHelper.error(res, { code: 'not_found', message: 'Route not found' }, 404);
