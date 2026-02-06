@@ -91,7 +91,7 @@ async function updateUser(req, res, next) {
             delete updates.password;
         }
 
-        updates.updatedAt = new Date().toISOString();
+        updates.updatedat = new Date().toISOString();
 
         const { data, error } = await supabase.from('users').update(updates).eq('id', id).select().single();
         if (error) return next(new ApiError('Failed to update user', 500, 'db_error', error));
