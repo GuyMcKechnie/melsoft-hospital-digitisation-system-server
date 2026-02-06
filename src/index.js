@@ -13,7 +13,22 @@ const PORT = process.env.PORT || 3000;
 
 // Security + parsing + logging
 app.use(helmet());
-app.use(cors());
+// Configure CORS to allow Authorization header for bearer tokens
+const corsOptions = {
+    origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : true,
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    exposedHeaders: ['Authorization'],
+    credentials: true,
+    optionsSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
+// Apply CORS middleware for preflight requests without registering a glob route
+app.use((req, res, next) => {
+    if (req.method === 'OPTIONS') {
+        return cors(corsOptions)(req, res, next);
+    }
+    return next();
+});
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(requestLogger());
@@ -53,6 +68,22 @@ try {
     app.use('/api', usersRouter);
 } catch (err) {
     console.warn('No users routes loaded:', err.message);
+}
+
+// Enquiries routes
+try {
+    const enquiriesRouter = require('./routes/enquiries');
+    app.use('/api', enquiriesRouter);
+} catch (err) {
+    console.warn('No enquiries routes loaded:', err.message);
+}
+
+// Appointments routes
+try {
+    const appointmentsRouter = require('./routes/appointments');
+    app.use('/api', appointmentsRouter);
+} catch (err) {
+    console.warn('No appointments routes loaded:', err.message);
 }
 
 // 404 handler
