@@ -39,6 +39,11 @@ PORT=3000
 NODE_ENV=development
 ```
 
+5. Set up the database tables:
+   - Open your project in the [Supabase Dashboard](https://app.supabase.com).
+   - Go to **SQL Editor** -> **New query**.
+   - Copy and paste the contents of [`schema.sql`](file:///c:/Users/Guy/Documents/Development/personal/melsoft/melsoft-hospital-digitisation-system-server/schema.sql) and click **Run**.
+
 ## Running the Server
 
 ### Development mode (with auto-reload):
